@@ -1,0 +1,27 @@
+{
+  "name": "podcast_madlib",
+  "version": "1.0.0",
+  "description": "Madlib for Come and Play Audio Hackathon 2017",
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^2.5.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cheesymoo/podcast_madlib.git"
+  },
+  "keywords": [
+    "audio",
+    "madlib",
+    "hackathon"
+  ],
+  "author": "cheesymoo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cheesymoo/podcast_madlib/issues"
+  },
+  "homepage": "https://github.com/cheesymoo/podcast_madlib#readme"
+}
