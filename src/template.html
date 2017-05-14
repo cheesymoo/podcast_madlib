@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>backtalk: your response recording</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="/style.css">
         <meta property="dc.title" content="backtalk">
         <meta property="dc.language" content="eng">
         <meta property="dc.description" content="Respond to your favorite podcast question!">
@@ -11,23 +11,19 @@
     <body>
         <div class="container">
             <div id="logo">
-                <img src="images/backtalklogo350.jpg" alt="backtalk logo">
+                <img src="/images/backtalklogo350.jpg" alt="backtalk logo">
             </div>
             <div id="audio">
-                <img src="http://placehold.it/350x150"></img>
-                <audio controls src="https://archive.org/download/testmp3testfile/mpthreetest.mp3"></audio>
+                <img src="{image}"></img>
+                <audio controls src="{outputfile}"></audio>
             </div>
             <div class="social-buttons">
-              <div class="social-share-button">
-                  <a href="https://twitter.com/intent/tweet?text=Look who's talking now!" data-size="large">
+                  <a href="https://twitter.com/intent/tweet?text=Look who's talking now! {url}" data-size="large">
                     <img src="https://www.mail-signatures.com/articles/wp-content/uploads/2014/08/twitter.png"></img>
                   </a>
-              </div>
-              <div class="social-share-button">
-                  <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">
+                  <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={url}">
                     <img src="http://www.mail-signatures.com/articles/wp-content/uploads/2014/08/facebook.png"></img>
                   </a>
-              </div>
             </div>
         <div>
     </body>
