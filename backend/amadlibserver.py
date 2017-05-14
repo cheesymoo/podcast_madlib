@@ -32,9 +32,14 @@ def list_madlibs():
 
 
 # For debug
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
+@app.route('/', defaults={'path': ''}, methods=['GET', "POST", 'OPTIONS'])
+@app.route('/<path:path>', methods=['GET', "POST", 'OPTIONS'])
 def catch_all(path):
     logger.info("catch_all for path: %s, request.args: %s, request.form: %s, request.files: %s",
                 path, request.args, request.form, request.files)
-    return 'You want path: %s' % path
+    resp = jsonify({"catch_all": path})
+    h = resp.headers
+    h["Access-Control-Allow-Origin"] = "*"
+    h["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept"
+    h["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+    return resp
