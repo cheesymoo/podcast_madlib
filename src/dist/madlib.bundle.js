@@ -539,12 +539,15 @@ var injectQuestion = function(question) {
 var playing = false;
 var audioClick = function() {
     var audio = document.getElementById("question-audio");
+    var wrapper = document.getElementById("question");
 
     if (!playing) {
         audio.play();
+        wrapper.style.background = "grey";
         playing = true;
     } else {
         audio.pause();
+        wrapper.style.background = "none";
         playing = false;
     }
 }
@@ -582,6 +585,8 @@ var writeAudioToDisk = function (blob) {
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
                 console.log('200 sent! ' + request);
+                var share = document.getElementById("share");
+                share.style.display = "block";
             } else {
                 console.log('err: ' + request.status);
             }

@@ -58,6 +58,10 @@ hr {
   padding-bottom: 6%;
 }
 
+#share {
+  display: none;
+}
+
 #share-button {
   background: #ce2f2f;
   color: white;
