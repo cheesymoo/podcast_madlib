@@ -32,8 +32,12 @@ hr {
   margin: 5%;
 }
 
+#interviewer {
+  height: 350px; width: 350px;
+}
+
 #logo img {
-  margin-top: 15%;
+  margin-top: 2%;
   height: 150px; width: 150px;
 }
 
