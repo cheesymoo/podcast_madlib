@@ -1,0 +1,7 @@
+question: {question}
+interviewer: {interviewer}
+parts:
+    - type: audio
+      file: {filename}.wav
+    - type: user_input
+      comments: Up to 15 seconds please

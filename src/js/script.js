@@ -1,4 +1,11 @@
+document.addEventListener("DOMContentLoaded", init, false);
+
+function init () {
+    var questions = requestQuestions();
+}
+
 var context = new window.AudioContext();
+var Recorder = require('./lib/recorder');
 
 var concatBuffs = function(buff1, buff2) {
     var numChannels = Math.min( buff1.numberOfChannels, buff2.numberOfChannels );
@@ -11,3 +18,43 @@ var concatBuffs = function(buff1, buff2) {
     }
     return temp;
 };
+
+var captureMic = function(source) {
+    var rec = new Recorder(source);
+    // rec.record();
+    // rec.stop();
+    // var newClip = rec.getBuffer([callback]);
+}
+
+var getBufferCallback = function( buffers ) {
+    var newSource = context.createBufferSource();
+    var newBuff = context.createBuffer( 2, buffers[0].length, context.sampleRate );
+    newBuff.getChannelData(0).set(buffers[0]);
+    newBuff.getChannelData(1).set(buffers[1]);
+    newSource.buffer = newBuff;
+
+    return newBuff;
+}
+
+var requestQuestions = function() {
+    var url = 'http://pdcmadlib.radiocut.fm/backend/list_madlibs';
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if (request.readyState === XMLHttpRequest.DONE) {
+            if (request.status === 200) {
+                console.log('win!');
+                console.log(request);
+                parseQuestions(request.responseText);
+            } else {
+                console.log('err: ' + request.status);
+            }
+        }
+    };
+    request.open('GET', url, true);
+    request.send();
+}
+
+var parseQuestions = function(questions) {
+    var ind = Math.floor(Math.random() * questions.length);
+    console.log(ind);
+}
