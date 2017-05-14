@@ -1,11 +1,12 @@
 html, body {
   font-family: "Futura";
+  font-size: 16px;
   height: 100%; width: 100%;
   margin-left: 0;
 }
 
 hr {
-  max-width: 650px;
+  max-width: 512px;
 }
 
 .container {
@@ -15,13 +16,14 @@ hr {
 }
 
 #question {
+  height: 15%;
   min-height: 120px;
+  margin: 5%;
   padding: 2%;
 }
 
 #question-wrapper {
   margin: 0 auto;
-  height: 75%; width: 75%;
 }
 
 #question-icon {
@@ -36,7 +38,6 @@ hr {
 }
 
 #question-text {
-  font-size: 16px;
   padding-top: 10px;
   padding-left: 130px;
   text-align: left;
@@ -49,13 +50,10 @@ hr {
 
 #icon {
   font-size: 2em;
-  height: 60%;
+  height: 50%;
+  min-height: 370px;
+  margin: 2%;
   text-align: center;
-}
-
-#icon img {
-  padding-top: 6%;
-  padding-bottom: 6%;
 }
 
 #share-button {
@@ -64,15 +62,48 @@ hr {
   font-size: 1.4em;
   margin: 0 auto;
   margin-top: 2%;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   text-align: center;
   text-transform: uppercase;
-  width: 300px;
+  width: 256px;
 }
 
 @media screen and (max-width: 512px) {
+  hr {
+    max-width: 256px;
+  }
+
+  .container {
+    text-align: center;
+  }
+
+  #question {
+    margin: 1%;
+    min-height: 90px;
+  }
+
+  #question-icon {
+    float: left;
+  }
+
+  #question-icon img {
+    height: 50%; width: 50%;
+    padding: none;
+  }
+
   #question-text {
     font-size: 12px;
+  }
+
+  #icon {
+    /*height: 50%;*/
+    min-height: 10px;
+    text-align: center;
+  }
+
+  #icon img {
+    height: 90%; width: 90%;
+    padding-top: 3%;
   }
 }
