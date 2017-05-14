@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", init, false);
 
 function init () {
     var questions = requestQuestions();
+    var audioPlay = document.getElementById("question-icon");
+    audioPlay.onclick = audioClick;
 }
 
 var context = new window.AudioContext();
@@ -59,6 +61,7 @@ var parseQuestions = function(questions) {
 }
 
 var injectQuestion = function(question) {
+    var base_url = 'http://pdcmadlib.radiocut.fm/media/';
     var text = question.question;
     var interviewer = question.interviewer;
     var id = question.key;
@@ -66,7 +69,22 @@ var injectQuestion = function(question) {
 
     var div_interviewer = document.getElementById("question-interviewer");
     var div_question = document.getElementById("question-question");
+    var audio = document.getElementById("question-audio");
 
     div_interviewer.innerHTML = interviewer;
     div_question.innerHTML = text;
+    audio.setAttribute("src", base_url + clip.file);
+}
+
+var playing = false;
+var audioClick = function() {
+    var audio = document.getElementById("question-audio");
+
+    if (!playing) {
+        audio.play();
+        playing = true;
+    } else {
+        audio.pause();
+        playing = false;
+    }
 }
