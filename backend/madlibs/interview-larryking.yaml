@@ -1,5 +1,5 @@
-name: "Interview by Larry King"
-photo: larryking.png
+question: "What egg hatched you into this world?"
+interviewer: Neil deGrasse Tyson
 parts:
     - type: audio
       file: larryking1.mp3
