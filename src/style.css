@@ -44,14 +44,14 @@ html, body {
   text-transform: uppercase;
 }
 
-#icon {
+#mic {
   border-bottom: 1px solid black;
   height: 60%;
   text-align: center;
   font-size: 2em;
 }
 
-#icon img {
+#mic img {
   padding-top: 6%;
   padding-bottom: 6%;
 }
