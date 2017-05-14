@@ -1,3 +1,4 @@
+import uuid
 import os
 import yaml
 import logging
@@ -6,7 +7,7 @@ import random
 
 from flask import Flask, send_from_directory, abort, Response, request, jsonify
 
-from amadlib import read_madlibs
+from amadlib import read_madlibs, generate_output
 
 app = Flask(__name__)
 application = app
@@ -24,6 +25,22 @@ def list_madlibs():
     logger.info("list_madlibs: %d madlibs", len(madlibs))
     random.shuffle(madlibs)
     resp = jsonify(madlibs)
+    h = resp.headers
+    h["Access-Control-Allow-Origin"] = "*"
+    h["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept"
+    h["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+    return resp
+
+@app.route('/backend/send_recording/<key>/', methods=["POST", 'OPTIONS', "GET"])
+def send_recording(key):
+    logger.info("send_recording %s", key)
+    task_id = str(uuid.uuid4())
+    logger.debug("task_id(%s)", task_id)
+    audio_file = request.files["data"]
+    wav_filename = "user_input/%s.wav" % task_id
+    open(wav_filename, "wb").write(audio_file.read())
+    generate_output(key, wav_filename, task_id)
+    resp = jsonify({"output": task_id + ".mp3"})
     h = resp.headers
     h["Access-Control-Allow-Origin"] = "*"
     h["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept"

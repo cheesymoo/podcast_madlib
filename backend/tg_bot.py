@@ -8,6 +8,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
+user_madlib = {}
 
 def start(bot, update):
     logger.info("Bot Started")
@@ -31,8 +32,25 @@ def get_text_input(bot, update):
     update.message.reply_text("%s asks: %s?" % (choosen_madlib["interviewer"],
                                                 choosen_madlib["question"]))
     audio_url = "http://pdcmadlib.radiocut.fm/media/" + choosen_madlib["parts"][0]["file"].replace(".wav", ".mp3")
+
     print(audio_url)
     update.message.reply_audio(audio=audio_url)
+    user_madlib[update.message.from_user.id] = choosen_madlib
+
+def get_audio_input(bot, update):
+    import ipdb; ipdb.set_trace()
+    user_id = update.message.from_user.id
+    if not user_id in user_madlib:
+        update.message.reply_text("Please say 'Hi' first and choose a question")
+        return
+
+ipdb> update.message.voice.file_id
+'AwADAQADUQADvyLARI99_YckuzqzAg'
+ipdb> bot.get_file(update.message.voice.file_id)
+<telegram.file.File object at 0x7fd100d4aba8>
+ipdb> f = bot.get_file(update.message.voice.file_id)
+ipdb> f.file_path
+'https://api.telegram.org/file/bot386607382:AAHFry5WfTyTU2Nhz4kEUm3TulSgFhonxMM/voice/4953997793841643601.oga'
 
 
 def error_callback(bot, update, error):
@@ -59,6 +77,7 @@ dp = updater.dispatcher
 
 dp.add_handler(CommandHandler('start', start))
 dp.add_handler(MessageHandler(Filters.text, get_text_input))
+dp.add_handler(MessageHandler(Filters.audio | Filters.voice, get_audio_input))
 dp.add_error_handler(error_callback)
 
 updater.start_polling()
