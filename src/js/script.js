@@ -1,5 +1,10 @@
-var context = new window.AudioContext();
+document.addEventListener("DOMContentLoaded", init, false);
 
+function init () {
+    var questions = requestQuestions();
+}
+
+var context = new window.AudioContext();
 var Recorder = require('./lib/recorder');
 
 var concatBuffs = function(buff1, buff2) {
@@ -29,4 +34,21 @@ var getBufferCallback = function( buffers ) {
     newSource.buffer = newBuff;
 
     return newBuff;
+}
+
+var requestQuestions = function() {
+    var url = 'http://pdcmadlib.radiocut.fm/backend/list_madlibs';
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+        if (request.readyState === XMLHttpRequest.DONE) {
+            if (request.status === 200) {
+                console.log('win!');
+                console.log(request);
+            } else {
+                console.log('err: ' + request.status);
+            }
+        }
+    };
+    request.open('GET', url, true);
+    request.send();
 }
