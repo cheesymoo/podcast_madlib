@@ -1,47 +1,73 @@
-html {
-  height: 100%;
-  text-align: center;
-}
-
-body {
-  font-family: Trebuchet MS;
+html, body {
+  font-family: "Trebuchet MS";
   height: 100%; width: 100%;
+  margin-left: 0;
 }
 
 .container {
   height: 100%;
-  width: 75%;
   margin: 0 auto;
+  max-width: 700px;
 }
 
 #question {
-  min-height: 150px; height: 40%;
-  border: 1px solid black;
+  border-bottom: 1px solid black;
+  min-height: 120px;
+  padding: 2%;
 }
 
 #question-wrapper {
-  background: pink;
-  height: 100px; width: 500px;
   margin: 0 auto;
+  height: 75%; width: 75%;
 }
 
+#question-icon {
+  float: left;
+  width: 120px;
+}
+
+#question-icon img {
+  height: 70%; width: 70%;
+  margin: 0 auto;
+  padding: 15%;
+}
+
+#question-text {
+  font-size: 16px;
+  padding-top: 10px;
+  padding-left: 130px;
+  text-align: left;
+}
+
+#question-interviewer {
+  font-size: 1.3em;
+  text-transform: uppercase;
+}
 
 #icon {
-  min-height: 150px; height: 40%;
-  border: 1px solid black;
+  border-bottom: 1px solid black;
+  height: 60%;
+  text-align: center;
+  font-size: 2em;
 }
 
-#share {
-  min-height: 150px; height: 20%;
-  border: 1px solid black;
-  padding: 20px;
+#icon img {
+  padding-top: 6%;
+  padding-bottom: 6%;
 }
 
 #share-button {
-  padding-top: 30px;
-  padding-bottom: 30px;
-  width: 300px;
-  /*text-align: center; vertical-align: center;*/
   background: red;
   margin: 0 auto;
+  margin-top: 5%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+  width: 300px;
+}
+
+@media screen and (max-width: 512px) {
+  #question-text {
+    font-size: 12px;
+  }
 }
