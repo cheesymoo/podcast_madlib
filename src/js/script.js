@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", init, false);
 var context = new window.AudioContext();
 var Recorder = require('./lib/recorder');
 var recorder;
+var qid;
 
 function init () {
     var questions = requestQuestions();
@@ -61,7 +62,7 @@ var injectQuestion = function(question) {
     var base_url = 'http://pdcmadlib.radiocut.fm/media/';
     var text = question.question;
     var interviewer = question.interviewer;
-    var id = question.key;
+    qid = question.key;
     var clip = question.parts[0];
 
     var div_interviewer = document.getElementById("question-interviewer");
@@ -109,9 +110,8 @@ var getBufferCallback = function( buffers ) {
 }
 
 var writeAudioToDisk = function (blob) {
-    var blobUrl = URL.createObjectURL(blob);
     var request = new XMLHttpRequest();
-    var url = 'http://pdcmadlib.radiocut.fm/backend/send_recording';
+    var url = 'http://pdcmadlib.radiocut.fm/backend/send_recording/' + qid + '/';
     request.onreadystatechange = function() {
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
@@ -123,12 +123,10 @@ var writeAudioToDisk = function (blob) {
         }
     };
     request.open('POST', url, true);
-    request.send(blobUrl);
+    request.send(blob);
 }
 
 function startUserMedia(stream) {
     var input = context.createMediaStreamSource(stream);
-
     recorder = new Recorder(input);
-  }
-
+}
