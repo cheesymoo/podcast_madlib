@@ -28,7 +28,7 @@ def generate_output(key, input_filename, uuid):
 
     if input_filename != answer:
         # Conversion
-        ffmpeg_call = ["/usr/bin/ffmpeg", "-n", "-i", input_filename, answer]
+        ffmpeg_call = ["/usr/bin/ffmpeg", "-n", "-i", input_filename, "-ar", "48000", answer]
         logger.info("ffmpeg call: %s", " ".join(ffmpeg_call))
         try:
             retcode = subprocess.call(ffmpeg_call)
