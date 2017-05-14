@@ -42,8 +42,6 @@ var requestQuestions = function() {
     request.onreadystatechange = function() {
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
-                console.log('win!');
-                console.log(request);
                 parseQuestions(request.responseText);
             } else {
                 console.log('err: ' + request.status);
@@ -55,6 +53,17 @@ var requestQuestions = function() {
 }
 
 var parseQuestions = function(questions) {
-    var ind = Math.floor(Math.random() * questions.length);
-    console.log(ind);
+    var parsed = JSON.parse(questions);
+    var ind = Math.floor(Math.random() * parsed.length);
+    injectQuestion(parsed[ind]);
+}
+
+var injectQuestion = function(question) {
+    var text = question.question;
+    var interviewer = question.interviewer;
+    var id = question.key;
+    var clip = question.parts[0];
+    console.log('Interviewer: ', interviewer);
+    console.log('question: ', text);
+    console.log('key: ', id);
 }
