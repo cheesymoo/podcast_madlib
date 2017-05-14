@@ -577,12 +577,11 @@ var getBufferCallback = function( buffers ) {
 var writeAudioToDisk = function (blob) {
     var request = new XMLHttpRequest();
     var url = 'http://pdcmadlib.radiocut.fm/backend/send_recording/' + qid + '/';
-    //var url = 'http://requestb.in/ql2e5lql';
+    //var url = 'https://pdcmadlib.localtunnel.me';
     request.onreadystatechange = function() {
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
-                // lets hope the server catches it!
-                console.log('sent! ' + request);
+                console.log('200 sent! ' + request);
             } else {
                 console.log('err: ' + request.status);
             }
