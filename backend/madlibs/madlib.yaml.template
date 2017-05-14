@@ -2,6 +2,6 @@ question: {question}
 interviewer: {interviewer}
 parts:
     - type: audio
-      file: {filename}.wav
+      file: {filename}.mp3
     - type: user_input
       comments: Up to 15 seconds please
