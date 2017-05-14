@@ -11,7 +11,8 @@ logger = logging.getLogger(__name__)
 
 def start(bot, update):
     logger.info("Bot Started")
-    welcome_message = "Hi, welcome to the podcast mad lib bot. Please choose a question: \n"
+    username = update.message.from_user.first_name
+    welcome_message = "Hi %s, welcome to the podcast mad lib bot. Please choose a question: \n" % username
     madlibs = read_madlibs()
     for i, madlib in enumerate(madlibs):
         welcome_message += "%d. Interviewer: %s - Question: %s\n" % (i + 1, madlib["interviewer"],
@@ -20,6 +21,9 @@ def start(bot, update):
 
 def get_text_input(bot, update):
     madlibs = read_madlibs()
+    if update.message.text.strip().lower() == "hi":
+        return start(bot, update)
+
     if not update.message.text.isdigit() or int(update.message.text) not in range(1, len(madlibs) + 1):
         update.message.reply_text("Please send a number between 1 and %d. I'm a dumb bot" % len(madlibs))
         return
