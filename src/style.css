@@ -77,9 +77,10 @@ hr {
   padding: 15%;
 }
 
-#question-source {
+#question-source a {
   color: #747475;
   font-size: 0.8em;
+  text-decoration: none;
 }
 
 #question-text {
