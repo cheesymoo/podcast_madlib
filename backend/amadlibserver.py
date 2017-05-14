@@ -41,7 +41,7 @@ def send_recording(key):
     open(wav_filename, "wb").write(audio_file.read())
     generate_output(key, wav_filename, task_id)
     resp = jsonify({"output": task_id + ".mp3",
-	"url": "https://pdcmadlib.radiocut.fm/backend/listen/%s/" % task_id
+	"url": "https://pdcmadlib.radiocut.fm/backend/listen/%s/%s/" % (key, task_id)
     })
     h = resp.headers
     h["Access-Control-Allow-Origin"] = "*"
@@ -49,12 +49,16 @@ def send_recording(key):
     h["Access-Control-Allow-Methods"] = "GET, OPTIONS"
     return resp
 
-@app.route('/backend/listen/<uuid>/', methods=["GET"])
-def listen(uuid):
+@app.route('/backend/listen/<key>/<uuid>/', methods=["GET"])
+def listen(key, uuid):
+    madlibs = read_madlibs()
+    madlib = [m for m in madlibs if m["key"] == key][0]
     template_filename = os.path.join(os.path.dirname(__file__), "../src/template.html")
     template = open(template_filename).read()
-    output = template.format(url="https://pdcmadlib.radiocut.fm/backend/listen/%s/" % uuid,
-                             image="http://placehold.it/350x150",
+    image = "https://pdcmadlib.radiocut.fm/be-images/%s" % madlib["interviewer_photo"] if madlib["interviewer_photo"] else "https://placehold.it/350x150"
+    output = template.format(url="https://pdcmadlib.radiocut.fm/backend/listen/%s/%s/" % (key, uuid),
+                             image=image,
+                             link=madlib["link"],
                              outputfile="https://pdcmadlib.radiocut.fm/output/%s.mp3" % uuid,
                              )
     return output

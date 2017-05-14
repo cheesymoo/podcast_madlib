@@ -40,7 +40,6 @@ def get_text_input(bot, update):
     user_madlib[update.message.from_user.id] = choosen_madlib
 
 def get_audio_input(bot, update):
-    import ipdb; ipdb.set_trace()
     user_id = update.message.from_user.id
     if not user_id in user_madlib:
         update.message.reply_text("Please say 'Hi' first and choose a question")
