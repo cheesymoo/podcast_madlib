@@ -499,7 +499,7 @@ var concatBuffs = function(buff1, buff2) {
 
 
 var requestQuestions = function() {
-    var url = 'http://pdcmadlib.radiocut.fm/backend/list_madlibs';
+    var url = 'https://pdcmadlib.radiocut.fm/backend/list_madlibs';
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
         if (request.readyState === XMLHttpRequest.DONE) {
@@ -521,7 +521,7 @@ var parseQuestions = function(questions) {
 }
 
 var injectQuestion = function(question) {
-    var base_url = 'http://pdcmadlib.radiocut.fm/media/';
+    var base_url = 'https://pdcmadlib.radiocut.fm/media/';
     var text = question.question;
     var interviewer = question.interviewer;
     qid = question.key;
@@ -586,7 +586,7 @@ var getBufferCallback = function( buffers ) {
 
 var writeAudioToDisk = function (blob) {
     var request = new XMLHttpRequest();
-    var url = 'http://pdcmadlib.radiocut.fm/backend/send_recording/' + qid + '/';
+    var url = 'https://pdcmadlib.radiocut.fm/backend/send_recording/' + qid + '/';
     //var url = 'https://pdcmadlib.localtunnel.me';
     request.onreadystatechange = function() {
         if (request.readyState === XMLHttpRequest.DONE) {
