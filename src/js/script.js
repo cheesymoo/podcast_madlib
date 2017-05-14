@@ -77,23 +77,29 @@ var injectQuestion = function(question) {
 var playing = false;
 var audioClick = function() {
     var audio = document.getElementById("question-audio");
+    var wrapper = document.getElementById("question");
 
     if (!playing) {
         audio.play();
+        wrapper.style.background = "grey";
         playing = true;
     } else {
         audio.pause();
+        wrapper.style.background = "none";
         playing = false;
     }
 }
 
 var recording = false;
 var micClick = function() {
+    var recordImg = document.getElementById("mic").childNodes[1];
     if (!recording) {
+        recordImg.setAttribute("src", "images/redMic.svg");
         recorder.record();
         recording = true;
     } else {
         recorder.stop();
+        recordImg.setAttribute("src", "images/mic.svg");
         recorder.exportWAV(writeAudioToDisk);
         //recorder.getBuffer(getBufferCallback);
         recording = false;
@@ -112,18 +118,22 @@ var getBufferCallback = function( buffers ) {
 var writeAudioToDisk = function (blob) {
     var request = new XMLHttpRequest();
     var url = 'http://pdcmadlib.radiocut.fm/backend/send_recording/' + qid + '/';
+    //var url = 'https://pdcmadlib.localtunnel.me';
     request.onreadystatechange = function() {
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
-                // lets hope the server catches it!
-                console.log('sent! ' + request);
+                console.log('200 sent! ' + request);
+                var share = document.getElementById("share");
+                share.style.display = "block";
             } else {
                 console.log('err: ' + request.status);
             }
         }
     };
+    var formData = new FormData();
     request.open('POST', url, true);
-    request.send(blob);
+    formData.append("data", blob);
+    request.send(formData);
 }
 
 function startUserMedia(stream) {

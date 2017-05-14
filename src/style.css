@@ -48,12 +48,17 @@ hr {
   text-transform: uppercase;
 }
 
-#icon {
+#mic {
   font-size: 2em;
   height: 50%;
   min-height: 370px;
   margin: 2%;
   text-align: center;
+}
+
+#mic img {
+  height: 85%; width: 85%;
+  padding-top: 4%;
 }
 
 #share-button {
@@ -67,6 +72,14 @@ hr {
   text-align: center;
   text-transform: uppercase;
   width: 256px;
+}
+
+#links {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
 }
 
 @media screen and (max-width: 512px) {
@@ -96,14 +109,13 @@ hr {
     font-size: 12px;
   }
 
-  #icon {
-    /*height: 50%;*/
-    min-height: 10px;
+  #mic {
+    min-height: 100px;
     text-align: center;
   }
 
-  #icon img {
-    height: 90%; width: 90%;
-    padding-top: 3%;
+  #mic img {
+    height: 85%; width: 85%;
+    padding-top: 5%;
   }
 }
