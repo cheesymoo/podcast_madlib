@@ -557,12 +557,12 @@ var micClick = function() {
     var recordImg = document.getElementById("mic").childNodes[1];
     if (!recording) {
         recordImg.setAttribute("src", "images/redMic.svg");
-        recorder.record();
+        recorder && recorder.record();
         recording = true;
     } else {
-        recorder.stop();
+        recorder && recorder.stop();
         recordImg.setAttribute("src", "images/mic.svg");
-        recorder.exportWAV(writeAudioToDisk);
+        recorder && recorder.exportWAV(writeAudioToDisk);
         //recorder.getBuffer(getBufferCallback);
         recording = false;
     }
