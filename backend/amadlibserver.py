@@ -47,6 +47,15 @@ def send_recording(key):
     h["Access-Control-Allow-Methods"] = "GET, OPTIONS"
     return resp
 
+@app.route('/backend/listen/<uuid>/', methods=["GET"])
+def listen(uuid):
+    template_filename = os.path.join(os.path.dirname(__file__), "../src/template.html")
+    template = open(template_filename).read()
+    output = template.format(url="https://pdcmadlib.radiocut.fm/backend/listen/%s/" % uuid,
+                             image="http://placehold.it/350x150",
+                             outputfile="https://pdcmadlib.radiocut.fm/output/%s.mp3" % uuid,
+                             )
+    return output
 
 # For debug
 @app.route('/', defaults={'path': ''}, methods=['GET', "POST", 'OPTIONS'])
