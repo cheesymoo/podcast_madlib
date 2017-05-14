@@ -44,6 +44,7 @@ var requestQuestions = function() {
             if (request.status === 200) {
                 console.log('win!');
                 console.log(request);
+                parseQuestions(request.responseText);
             } else {
                 console.log('err: ' + request.status);
             }
@@ -51,4 +52,9 @@ var requestQuestions = function() {
     };
     request.open('GET', url, true);
     request.send();
+}
+
+var parseQuestions = function(questions) {
+    var ind = Math.floor(Math.random() * questions.length);
+    console.log(ind);
 }
