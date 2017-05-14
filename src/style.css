@@ -13,6 +13,43 @@ hr {
   height: 100%;
   margin: 0 auto;
   max-width: 700px;
+  text-align: center;
+}
+
+.social-buttons {
+  margin: 0 auto;
+  max-width: 350px;
+  min-height: 140px;
+  background: red;
+}
+
+.social-share-button {
+  float: left;
+  background: purple;
+  margin: 20px;
+  height: 100px; width: 100px;
+}
+
+#audio {
+  margin: 5%;
+}
+
+#logo img {
+  margin-top: 5%;
+  height: 150px; width: 150px;
+}
+
+#mic {
+  font-size: 2em;
+  height: 50%;
+  min-height: 370px;
+  margin: 2%;
+  text-align: center;
+}
+
+#mic img {
+  height: 85%; width: 85%;
+  padding-top: 4%;
 }
 
 #question {
@@ -46,19 +83,6 @@ hr {
 #question-interviewer {
   font-size: 1.3em;
   text-transform: uppercase;
-}
-
-#mic {
-  font-size: 2em;
-  height: 50%;
-  min-height: 370px;
-  margin: 2%;
-  text-align: center;
-}
-
-#mic img {
-  height: 85%; width: 85%;
-  padding-top: 4%;
 }
 
 #share {
