@@ -1,7 +1,9 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+import urllib.request
+import uuid
 import logging
 import os
-from amadlib import read_madlibs
+from amadlib import read_madlibs, generate_output
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                                         level=logging.WARN)
@@ -31,7 +33,7 @@ def get_text_input(bot, update):
     choosen_madlib = madlibs[int(update.message.text) - 1]
     update.message.reply_text("%s asks: %s?" % (choosen_madlib["interviewer"],
                                                 choosen_madlib["question"]))
-    audio_url = "http://pdcmadlib.radiocut.fm/media/" + choosen_madlib["parts"][0]["file"].replace(".wav", ".mp3")
+    audio_url = "https://pdcmadlib.radiocut.fm/media/" + choosen_madlib["parts"][0]["file"].replace(".wav", ".mp3")
 
     print(audio_url)
     update.message.reply_audio(audio=audio_url)
@@ -43,14 +45,23 @@ def get_audio_input(bot, update):
     if not user_id in user_madlib:
         update.message.reply_text("Please say 'Hi' first and choose a question")
         return
+    audio_file = bot.get_file(update.message.voice.file_id)
+    audio_fd = urllib.request.urlopen(audio_file.file_path)
+    task_id = str(uuid.uuid4())
+    input_filename = "user_input/%s%s" % (task_id, audio_file.file_path.split(".")[-1])
+    open(input_filename, "wb").write(audio_fd.read())
+    generate_output(user_madlib[user_id]["key"], input_filename, task_id)
+    audio_url = "https://pdcmadlib.radiocut.fm/output/%s.mp3" % task_id
+    update.message.reply_audio(audio=audio_url)
 
-ipdb> update.message.voice.file_id
-'AwADAQADUQADvyLARI99_YckuzqzAg'
-ipdb> bot.get_file(update.message.voice.file_id)
-<telegram.file.File object at 0x7fd100d4aba8>
-ipdb> f = bot.get_file(update.message.voice.file_id)
-ipdb> f.file_path
-'https://api.telegram.org/file/bot386607382:AAHFry5WfTyTU2Nhz4kEUm3TulSgFhonxMM/voice/4953997793841643601.oga'
+#
+#ipdb> update.message.voice.file_id
+#'AwADAQADUQADvyLARI99_YckuzqzAg'
+#ipdb> bot.get_file(update.message.voice.file_id)
+#<telegram.file.File object at 0x7fd100d4aba8>
+#ipdb> f = bot.get_file(update.message.voice.file_id)
+#ipdb> f.file_path
+#'https://api.telegram.org/file/bot386607382:AAHFry5WfTyTU2Nhz4kEUm3TulSgFhonxMM/voice/4953997793841643601.oga'
 
 
 def error_callback(bot, update, error):
