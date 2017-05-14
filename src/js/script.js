@@ -93,7 +93,8 @@ var micClick = function() {
         recording = true;
     } else {
         recorder.stop();
-        recorder.getBuffer(getBufferCallback);
+        recorder.exportWAV(writeAudioToDisk);
+        //recorder.getBuffer(getBufferCallback);
         recording = false;
     }
 }
@@ -107,7 +108,22 @@ var getBufferCallback = function( buffers ) {
     writeAudioToDisk(newSource);
 }
 
-var writeAudioToDisk = function (buffer) {
+var writeAudioToDisk = function (blob) {
+    var blobUrl = URL.createObjectURL(blob);
+    var request = new XMLHttpRequest();
+    var url = 'http://pdcmadlib.radiocut.fm/backend/send_recording';
+    request.onreadystatechange = function() {
+        if (request.readyState === XMLHttpRequest.DONE) {
+            if (request.status === 200) {
+                // lets hope the server catches it!
+                console.log('sent! ' + request);
+            } else {
+                console.log('err: ' + request.status);
+            }
+        }
+    };
+    request.open('POST', url, true);
+    request.send(blobUrl);
 }
 
 function startUserMedia(stream) {
