@@ -1,10 +1,16 @@
 # The Magic Mics
 Phill @PhillipHermans
+
 Jim @JimSamSF
-Dario @DarioMocha 
+
+Dario @DarioMocha
+
 Ninna @Ninna_GD
-Guillermo @Gnarvaja 
+
+Guillermo @Gnarvaja
+
 Katrina
+
 Jenny @J2theLuna
 # Come and Play Audio Hackathon 2017
 
