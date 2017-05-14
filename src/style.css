@@ -1,4 +1,36 @@
+html {
+  height: 100%;
+}
+
 body {
-    padding: 20px;
-    font-family: Trebuchet MS;
+  padding: 20px;
+  font-family: Trebuchet MS;
+  height: 100%; width: 100%;
+}
+
+.container {
+  height: 100%;
+}
+
+.segment {
+  height: 35%;
+  background: grey;
+  font-family: courier;
+}
+
+.segment-button {
+  margin: 5px;
+  height: 150px;
+  width: 100px;
+  background: blue;
+}
+
+.waveform {
+  background: red;
+  height: 70%;
+}
+
+.options {
+  background: orange;
+  height: 70%;
 }
