@@ -21,6 +21,7 @@ logger = logging.getLogger("http_server")
 @app.route("/backend/list_madlibs")
 def list_madlibs():
     madlibs = read_madlibs()
+    logger.info("list_madlibs: %d madlibs", len(madlibs))
     random.shuffle(madlibs)
     resp = jsonify(madlibs)
     h = resp.headers
@@ -34,4 +35,6 @@ def list_madlibs():
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
+    logger.info("catch_all for path: %s, request.args: %s, request.form: %s, request.files: %s",
+                path, request.args, request.form, request.files)
     return 'You want path: %s' % path
