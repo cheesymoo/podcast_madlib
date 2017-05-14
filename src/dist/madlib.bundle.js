@@ -469,7 +469,7 @@ var qid;
 
 function init () {
     var questions = requestQuestions();
-    var audioPlay = document.getElementById("question-icon");
+    var audioPlay = document.getElementById("question");
     audioPlay.onclick = audioClick;
 
     var recordBtn = document.getElementById("mic");
@@ -542,6 +542,7 @@ var audioClick = function() {
     var wrapper = document.getElementById("question");
 
     if (!playing) {
+        audio.addEventListener("ended", onEnd, false);
         audio.play();
         wrapper.style.background = "grey";
         playing = true;
@@ -550,6 +551,12 @@ var audioClick = function() {
         wrapper.style.background = "none";
         playing = false;
     }
+}
+
+var onEnd = function() {
+    var wrapper = document.getElementById("question");
+    wrapper.style.background = "none";
+    playing = false;
 }
 
 var recording = false;
