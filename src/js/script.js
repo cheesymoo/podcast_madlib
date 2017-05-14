@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", init, false);
 
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var context = new window.AudioContext();
 var Recorder = require('./lib/recorder');
 var recorder;
@@ -13,9 +14,7 @@ function init () {
     var recordBtn = document.getElementById("mic");
     recordBtn.onclick = micClick;
 
-    navigator.getUserMedia(
-        {audio: true},
-        startUserMedia,
+    navigator.mediaDevices.getUserMedia({audio: true}).then(startUserMedia).catch(
         function(e) {
               console.log('No live audio input: ' + e);
         }
@@ -126,6 +125,7 @@ var writeAudioToDisk = function (blob) {
     var request = new XMLHttpRequest();
     var url = 'https://pdcmadlib.radiocut.fm/backend/send_recording/' + qid + '/';
     //var url = 'https://pdcmadlib.localtunnel.me';
+    console.log('audio recorded!', blob);
     request.onreadystatechange = function() {
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
@@ -144,6 +144,7 @@ var writeAudioToDisk = function (blob) {
 }
 
 function startUserMedia(stream) {
+    console.log('Running user media');
     var input = context.createMediaStreamSource(stream);
     recorder = new Recorder(input);
 }
