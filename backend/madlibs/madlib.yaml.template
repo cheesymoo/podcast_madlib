@@ -1,5 +1,7 @@
 question: {question}
 interviewer: {interviewer}
+interviewer_photo: {interviewer_img}
+link: {link}
 parts:
     - type: audio
       file: {filename}.mp3

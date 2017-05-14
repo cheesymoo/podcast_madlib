@@ -107,6 +107,11 @@ hr {
   width: 256px;
 }
 
+#share a {
+  color: white;
+  text-decoration: none;
+}
+
 #links {
     margin-top: 10px;
     margin-left: auto;

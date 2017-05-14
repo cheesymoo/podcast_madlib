@@ -40,7 +40,9 @@ def send_recording(key):
     wav_filename = "user_input/%s.wav" % task_id
     open(wav_filename, "wb").write(audio_file.read())
     generate_output(key, wav_filename, task_id)
-    resp = jsonify({"output": task_id + ".mp3"})
+    resp = jsonify({"output": task_id + ".mp3",
+	"url": "https://pdcmadlib.radiocut.fm/backend/listen/%s/" % task_id
+    })
     h = resp.headers
     h["Access-Control-Allow-Origin"] = "*"
     h["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept"
