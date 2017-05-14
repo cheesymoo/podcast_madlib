@@ -75,6 +75,14 @@ hr {
   width: 300px;
 }
 
+#links {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+}
+
 @media screen and (max-width: 512px) {
   #question-text {
     font-size: 12px;
