@@ -63,10 +63,17 @@ var injectQuestion = function(question) {
     var interviewer = question.interviewer;
     qid = question.key;
     var clip = question.parts[0];
+    var link = question.link;
 
     var div_interviewer = document.getElementById("question-interviewer");
     var div_question = document.getElementById("question-question");
+    var div_source = document.getElementById("question-source");
     var audio = document.getElementById("question-audio");
+
+    var node = document.createElement("a");
+    node.href = link;
+    node.innerHTML = 'Full interview';
+    div_source.appendChild(node);
 
     div_interviewer.innerHTML = interviewer;
     div_question.innerHTML = text;
