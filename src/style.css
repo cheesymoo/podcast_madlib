@@ -1,36 +1,47 @@
 html {
   height: 100%;
+  text-align: center;
 }
 
 body {
-  padding: 20px;
   font-family: Trebuchet MS;
   height: 100%; width: 100%;
 }
 
 .container {
   height: 100%;
+  width: 75%;
+  margin: 0 auto;
 }
 
-.segment {
-  height: 35%;
-  background: grey;
-  font-family: courier;
+#question {
+  min-height: 150px; height: 40%;
+  border: 1px solid black;
 }
 
-.segment-button {
-  margin: 5px;
-  height: 150px;
-  width: 100px;
-  background: blue;
+#question-wrapper {
+  background: pink;
+  height: 100px; width: 500px;
+  margin: 0 auto;
 }
 
-.waveform {
+
+#icon {
+  min-height: 150px; height: 40%;
+  border: 1px solid black;
+}
+
+#share {
+  min-height: 150px; height: 20%;
+  border: 1px solid black;
+  padding: 20px;
+}
+
+#share-button {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  width: 300px;
+  /*text-align: center; vertical-align: center;*/
   background: red;
-  height: 70%;
-}
-
-.options {
-  background: orange;
-  height: 70%;
+  margin: 0 auto;
 }
