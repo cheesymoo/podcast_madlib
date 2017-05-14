@@ -465,7 +465,6 @@ document.addEventListener("DOMContentLoaded", init, false);
 var context = new window.AudioContext();
 var Recorder = __webpack_require__(0);
 var recorder;
-var qid;
 
 function init () {
     var questions = requestQuestions();
@@ -524,7 +523,7 @@ var injectQuestion = function(question) {
     var base_url = 'http://pdcmadlib.radiocut.fm/media/';
     var text = question.question;
     var interviewer = question.interviewer;
-    qid = question.key;
+    var id = question.key;
     var clip = question.parts[0];
 
     var div_interviewer = document.getElementById("question-interviewer");
@@ -539,30 +538,24 @@ var injectQuestion = function(question) {
 var playing = false;
 var audioClick = function() {
     var audio = document.getElementById("question-audio");
-    var wrapper = document.getElementById("question");
 
     if (!playing) {
         audio.play();
-        wrapper.style.background = "grey";
         playing = true;
     } else {
         audio.pause();
-        wrapper.style.background = "none";
         playing = false;
     }
 }
 
 var recording = false;
 var micClick = function() {
-    var recordImg = document.getElementById("mic").childNodes[1];
     if (!recording) {
-        recordImg.setAttribute("src", "images/redMic.svg");
-        recorder && recorder.record();
+        recorder.record();
         recording = true;
     } else {
-        recorder && recorder.stop();
-        recordImg.setAttribute("src", "images/mic.svg");
-        recorder && recorder.exportWAV(writeAudioToDisk);
+        recorder.stop();
+        recorder.exportWAV(writeAudioToDisk);
         //recorder.getBuffer(getBufferCallback);
         recording = false;
     }
@@ -578,30 +571,29 @@ var getBufferCallback = function( buffers ) {
 }
 
 var writeAudioToDisk = function (blob) {
+    var blobUrl = URL.createObjectURL(blob);
     var request = new XMLHttpRequest();
-    var url = 'http://pdcmadlib.radiocut.fm/backend/send_recording/' + qid + '/';
-    //var url = 'https://pdcmadlib.localtunnel.me';
+    var url = 'http://pdcmadlib.radiocut.fm/backend/send_recording';
     request.onreadystatechange = function() {
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
-                console.log('200 sent! ' + request);
-                var share = document.getElementById("share");
-                share.style.display = "block";
+                // lets hope the server catches it!
+                console.log('sent! ' + request);
             } else {
                 console.log('err: ' + request.status);
             }
         }
     };
-    var formData = new FormData();
     request.open('POST', url, true);
-    formData.append("data", blob);
-    request.send(formData);
+    request.send(blobUrl);
 }
 
 function startUserMedia(stream) {
     var input = context.createMediaStreamSource(stream);
+
     recorder = new Recorder(input);
-}
+  }
+
 
 
 /***/ })
