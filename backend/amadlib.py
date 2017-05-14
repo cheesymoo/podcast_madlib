@@ -28,12 +28,15 @@ def generate_output(key, input_filename, uuid):
 
     if input_filename != answer:
         # Conversion
-        ffmpeg_call = ["ffmpeg", "-n", "-i", input_filename, answer]
+        ffmpeg_call = ["/usr/bin/ffmpeg", "-n", "-i", input_filename, answer]
         logger.info("ffmpeg call: %s", " ".join(ffmpeg_call))
-        retcode = subprocess.call(ffmpeg_call)
+        try:
+            retcode = subprocess.call(ffmpeg_call)
+        except:
+            logger.exception("error calling %s", ffmpeg_call)
         logger.info("retcode %s", retcode)
 
-    ffmpeg_call = ["ffmpeg", "-n",
+    ffmpeg_call = ["/usr/bin/ffmpeg", "-n",
                    "-loglevel", "warning",
                    "-i", "concat:" + "%s|%s" % (question, answer),
                    "-acodec", "copy",

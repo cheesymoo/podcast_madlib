@@ -32,8 +32,12 @@ hr {
   margin: 5%;
 }
 
+#interviewer {
+  height: 350px; width: 350px;
+}
+
 #logo img {
-  margin-top: 15%;
+  margin-top: 2%;
   height: 150px; width: 150px;
 }
 
@@ -52,12 +56,13 @@ hr {
 
 #question {
   height: 15%;
-  min-height: 120px;
+  min-height: 130px;
   margin: 5%;
   padding: 2%;
 }
 
 #question-wrapper {
+  /*max-width: 75%;*/
   margin: 0 auto;
 }
 
@@ -72,10 +77,15 @@ hr {
   padding: 15%;
 }
 
+#question-source {
+  color: #747475;
+  font-size: 0.8em;
+}
+
 #question-text {
   padding-top: 10px;
   padding-left: 130px;
-  text-align: left;
+  text-align: justify;
 }
 
 #question-interviewer {
@@ -133,6 +143,13 @@ hr {
 
   #question-text {
     font-size: 12px;
+  }
+
+  #question-source {
+    color: #747475;
+    font-size: 10px;
+    margin: 0 auto;
+    text-align: left;
   }
 
   #mic {
