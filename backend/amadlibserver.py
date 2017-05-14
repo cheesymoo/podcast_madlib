@@ -17,10 +17,16 @@ logging.config.fileConfig(CONFIG_FILE)
 logger = logging.getLogger("http_server")
 
 
-@app.route("/list_madlibs")
+@app.route("/backend/list_madlibs")
 def list_madlibs():
     madlibs = []
     for filename in os.listdir(MADLIBS_DIR):
         full_filename = os.path.join(MADLIBS_DIR, filename)
         madlibs.append(yaml.load(open(full_filename)))
     return jsonify(madlibs)
+
+# For debug
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    return 'You want path: %s' % path
