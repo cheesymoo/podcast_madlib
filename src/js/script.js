@@ -1,13 +1,26 @@
 document.addEventListener("DOMContentLoaded", init, false);
 
+var context = new window.AudioContext();
+var Recorder = require('./lib/recorder');
+var recorder;
+
 function init () {
     var questions = requestQuestions();
     var audioPlay = document.getElementById("question-icon");
     audioPlay.onclick = audioClick;
+
+    var recordBtn = document.getElementById("mic");
+    recordBtn.onclick = micClick;
+
+    navigator.getUserMedia(
+        {audio: true},
+        startUserMedia,
+        function(e) {
+              console.log('No live audio input: ' + e);
+        }
+    );
 }
 
-var context = new window.AudioContext();
-var Recorder = require('./lib/recorder');
 
 var concatBuffs = function(buff1, buff2) {
     var numChannels = Math.min( buff1.numberOfChannels, buff2.numberOfChannels );
@@ -21,22 +34,6 @@ var concatBuffs = function(buff1, buff2) {
     return temp;
 };
 
-var captureMic = function(source) {
-    var rec = new Recorder(source);
-    // rec.record();
-    // rec.stop();
-    // var newClip = rec.getBuffer([callback]);
-}
-
-var getBufferCallback = function( buffers ) {
-    var newSource = context.createBufferSource();
-    var newBuff = context.createBuffer( 2, buffers[0].length, context.sampleRate );
-    newBuff.getChannelData(0).set(buffers[0]);
-    newBuff.getChannelData(1).set(buffers[1]);
-    newSource.buffer = newBuff;
-
-    return newBuff;
-}
 
 var requestQuestions = function() {
     var url = 'http://pdcmadlib.radiocut.fm/backend/list_madlibs';
@@ -88,3 +85,34 @@ var audioClick = function() {
         playing = false;
     }
 }
+
+var recording = false;
+var micClick = function() {
+    if (!recording) {
+        recorder.record();
+        recording = true;
+    } else {
+        recorder.stop();
+        recorder.getBuffer(getBufferCallback);
+        recording = false;
+    }
+}
+
+var getBufferCallback = function( buffers ) {
+    var newSource = context.createBufferSource();
+    var newBuff = context.createBuffer( 2, buffers[0].length, context.sampleRate );
+    newBuff.getChannelData(0).set(buffers[0]);
+    newBuff.getChannelData(1).set(buffers[1]);
+    newSource.buffer = newBuff;
+    writeAudioToDisk(newSource);
+}
+
+var writeAudioToDisk = function (buffer) {
+}
+
+function startUserMedia(stream) {
+    var input = context.createMediaStreamSource(stream);
+
+    recorder = new Recorder(input);
+  }
+
