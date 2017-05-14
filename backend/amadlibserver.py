@@ -2,6 +2,7 @@ import os
 import yaml
 import logging
 import logging.config
+import random
 
 from flask import Flask, send_from_directory, abort, Response, request, jsonify
 
@@ -21,9 +22,20 @@ logger = logging.getLogger("http_server")
 def list_madlibs():
     madlibs = []
     for filename in os.listdir(MADLIBS_DIR):
+        if not filename.endswith(".yaml"):
+            continue
         full_filename = os.path.join(MADLIBS_DIR, filename)
-        madlibs.append(yaml.load(open(full_filename)))
-    return jsonify(madlibs)
+        madlib = yaml.load(open(full_filename))
+        madlib["key"] = filename[:-5]
+        madlibs.append(madlib)
+    random.shuffle(madlibs)
+    resp = jsonify(madlibs)
+    h = resp.headers 
+    h["Access-Control-Allow-Origin"] = "*"
+    h["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept"
+    h["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+    return resp
+
 
 # For debug
 @app.route('/', defaults={'path': ''})

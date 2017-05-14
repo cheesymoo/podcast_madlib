@@ -1,9 +1,0 @@
-name: "Interview by Larry King"
-photo: larryking.png
-parts:
-    - type: audio
-      file: larryking1.mp3
-    - type: user_input
-      comments: Up to 15 seconds please
-    - audio: separator.mp3
-    - audio: closing_ad.mp3
