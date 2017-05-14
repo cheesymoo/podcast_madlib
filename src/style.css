@@ -19,15 +19,13 @@ hr {
 .social-buttons {
   margin: 0 auto;
   max-width: 350px;
-  min-height: 140px;
-  background: red;
+  min-height: 75px;
+  text-align: center;
 }
 
-.social-share-button {
-  float: left;
-  background: purple;
-  margin: 20px;
-  height: 100px; width: 100px;
+.social-buttons a {
+  margin-left: 5%; margin-right: 5%;
+  color: #ffffff;
 }
 
 #audio {
@@ -35,7 +33,7 @@ hr {
 }
 
 #logo img {
-  margin-top: 5%;
+  margin-top: 15%;
   height: 150px; width: 150px;
 }
 
