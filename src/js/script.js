@@ -63,7 +63,10 @@ var injectQuestion = function(question) {
     var interviewer = question.interviewer;
     var id = question.key;
     var clip = question.parts[0];
-    console.log('Interviewer: ', interviewer);
-    console.log('question: ', text);
-    console.log('key: ', id);
+
+    var div_interviewer = document.getElementById("question-interviewer");
+    var div_question = document.getElementById("question-question");
+
+    div_interviewer.innerHTML = interviewer;
+    div_question.innerHTML = text;
 }
