@@ -462,6 +462,7 @@ module.exports = g;
 
 document.addEventListener("DOMContentLoaded", init, false);
 
+window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var context = new window.AudioContext();
 var Recorder = __webpack_require__(0);
 var recorder;
@@ -475,9 +476,7 @@ function init () {
     var recordBtn = document.getElementById("mic");
     recordBtn.onclick = micClick;
 
-    navigator.getUserMedia(
-        {audio: true},
-        startUserMedia,
+    navigator.mediaDevices.getUserMedia({audio: true}).then(startUserMedia).catch(
         function(e) {
               console.log('No live audio input: ' + e);
         }
@@ -588,12 +587,16 @@ var writeAudioToDisk = function (blob) {
     var request = new XMLHttpRequest();
     var url = 'https://pdcmadlib.radiocut.fm/backend/send_recording/' + qid + '/';
     //var url = 'https://pdcmadlib.localtunnel.me';
+    console.log('audio recorded!', blob);
     request.onreadystatechange = function() {
         if (request.readyState === XMLHttpRequest.DONE) {
             if (request.status === 200) {
                 console.log('200 sent! ' + request);
                 var share = document.getElementById("share");
                 share.style.display = "block";
+                var response = JSON.parse(request.response);
+                var shareBtn = document.getElementById("share-button");
+                shareBtn.href = response.url;
             } else {
                 console.log('err: ' + request.status);
             }
@@ -606,6 +609,7 @@ var writeAudioToDisk = function (blob) {
 }
 
 function startUserMedia(stream) {
+    console.log('Running user media');
     var input = context.createMediaStreamSource(stream);
     recorder = new Recorder(input);
 }
