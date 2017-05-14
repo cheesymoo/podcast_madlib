@@ -141,6 +141,13 @@ hr {
     font-size: 12px;
   }
 
+  #question-source {
+    color: #747475;
+    font-size: 10px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
   #mic {
     min-height: 100px;
     text-align: center;
