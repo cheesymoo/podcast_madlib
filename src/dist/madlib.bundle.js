@@ -594,6 +594,9 @@ var writeAudioToDisk = function (blob) {
                 console.log('200 sent! ' + request);
                 var share = document.getElementById("share");
                 share.style.display = "block";
+                var response = JSON.parse(request.response);
+                var shareBtn = document.getElementById("share-button");
+                shareBtn.href = response.url;
             } else {
                 console.log('err: ' + request.status);
             }

@@ -95,9 +95,6 @@ hr {
 
 #share {
   display: none;
-}
-
-#share-button {
   background: #ce2f2f;
   color: white;
   font-size: 1.4em;
