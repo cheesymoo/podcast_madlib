@@ -2,13 +2,14 @@
   "name": "podcast_madlib",
   "version": "1.0.0",
   "description": "Madlib for Come and Play Audio Hackathon 2017",
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
     "webpack": "^2.5.1"
   },
   "scripts": {
-      "build": "webpack --progress --profile --color",
-      "build:dev": "webpack --progress --profile --color --watch"
+    "build": "webpack --progress --profile --color",
+    "build:dev": "webpack --progress --profile --color --watch"
   },
   "repository": {
     "type": "git",
